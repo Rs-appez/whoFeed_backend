@@ -12,7 +12,7 @@ class ChampionViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def get_champions(self, request):
-        queryset = Champion.objects.all().order_by("?")[:30]
+        queryset = Champion.objects.all().order_by("?")[:50]
         serializer = ChampionSerializer(queryset, many=True)
         return Response(serializer.data)
 
