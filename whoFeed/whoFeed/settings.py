@@ -31,10 +31,10 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [env("BACKEND_HOSTS", default="127.0.0.1")]
 
-CSRF_TRUSTED_ORIGINS = ["https://" + env("FRONTEND_HOSTS", default="")]
+# CSRF_TRUSTED_ORIGINS = ["https://" + env("FRONTEND_HOSTS", default="")]
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = ("http://127.0.0.1:8000",)
+CORS_ORIGIN_WHITELIST = ("http://127.0.0.1:8000", "http://localhost:4200")
 # Application definition
 
 INSTALLED_APPS = [
