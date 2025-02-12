@@ -2,6 +2,7 @@ from django.db import models
 
 from cryptography.hazmat.primitives import serialization
 import jwt
+import bleach
 import uuid
 from django.conf import settings
 
@@ -54,6 +55,7 @@ class Player(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        self.name = bleach.clean(self.name)
         self.make_jwt()
         super().save(*args, **kwargs)
 
