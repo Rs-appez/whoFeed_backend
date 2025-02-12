@@ -26,6 +26,8 @@ env.read_env(str(BASE_DIR / "../.env"))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
+SECRET_JWT_KEY = env.str("SECRET_JWT_KEY", multiline=True)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
