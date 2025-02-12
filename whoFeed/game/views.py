@@ -2,8 +2,13 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Champion, Tag, ParType
-from .serializers import ChampionSerializer, TagSerializer, ParTypeSerializer
+from .models import Champion, Tag, ParType, Player
+from .serializers import (
+    ChampionSerializer,
+    TagSerializer,
+    ParTypeSerializer,
+    PlayerSerializer,
+)
 
 
 class ChampionViewSet(viewsets.ModelViewSet):
@@ -25,3 +30,8 @@ class TagViewSet(viewsets.ModelViewSet):
 class ParTypeViewSet(viewsets.ModelViewSet):
     queryset = ParType.objects.all()
     serializer_class = ParTypeSerializer
+
+
+class PlayerViewSet(viewsets.ModelViewSet):
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
