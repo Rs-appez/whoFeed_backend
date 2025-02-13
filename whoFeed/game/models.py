@@ -1,10 +1,9 @@
 from django.db import models
 
-from cryptography.hazmat.primitives import serialization
-import jwt
 import bleach
 import uuid
-from django.conf import settings
+
+from .jwt_utils import make_jwt
 
 
 class Champion(models.Model):
@@ -56,15 +55,5 @@ class Player(models.Model):
 
     def save(self, *args, **kwargs):
         self.name = bleach.clean(self.name)
-        self.make_jwt()
+        self.jwttoken = make_jwt({"id": str(self.id), "name": self.name})
         super().save(*args, **kwargs)
-
-    def make_jwt(self):
-        private_key = serialization.load_ssh_private_key(
-            settings.SECRET_JWT_KEY.encode(), password=b""
-        )
-        self.jwttoken = jwt.encode(
-            {"id": str(self.id), "name": self.name},
-            private_key,
-            algorithm="RS256",
-        )
