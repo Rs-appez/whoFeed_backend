@@ -5,12 +5,13 @@ from rest_framework.permissions import AllowAny
 
 from .jwt_utils import decode_jwt
 
-from .models import Champion, Tag, ParType, Player
+from .models import Champion, Tag, ParType, Player, Party
 from .serializers import (
     ChampionSerializer,
     TagSerializer,
     ParTypeSerializer,
     PlayerSerializer,
+    PartySerializer,
 )
 
 
@@ -49,3 +50,8 @@ class ParTypeViewSet(viewsets.ModelViewSet):
 class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+
+
+class PartyViewSet(viewsets.ViewSet):
+    queryset = Party.objects.all()
+    serializer_class = PartySerializer

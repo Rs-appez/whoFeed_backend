@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Champion, Tag, ParType, Player
+from .models import Champion, Tag, ParType, Player, Party
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -27,4 +27,10 @@ class ChampionSerializer(serializers.ModelSerializer):
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
+        fields = "__all__"
+
+
+class PartySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Party
         fields = "__all__"

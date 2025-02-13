@@ -1,5 +1,7 @@
 from django.db import models
 
+from shortuuid.django_fields import ShortUUIDField
+
 import bleach
 import uuid
 
@@ -57,3 +59,16 @@ class Player(models.Model):
         self.name = bleach.clean(self.name)
         self.jwttoken = make_jwt({"id": str(self.id), "name": self.name})
         super().save(*args, **kwargs)
+
+
+class Party(models.Model):
+    id = ShortUUIDField(primary_key=True, editable=False,
+                        max_length=8, length=8)
+    players = models.ManyToManyField("Player", max_length=2)
+
+    def save(self, *args, **kwargs):
+        self.id = (self.id[:4] + "-" + self.id[4:]).upper()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.id
