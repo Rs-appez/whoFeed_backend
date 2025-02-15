@@ -2,7 +2,13 @@ from django.urls import path, include
 
 from rest_framework import routers
 
-from .views import ChampionViewSet, TagViewSet, ParTypeViewSet, PlayerViewSet, PartyViewSet
+from .views import (
+    ChampionViewSet,
+    TagViewSet,
+    ParTypeViewSet,
+    PlayerViewSet,
+    PartyViewSet,
+)
 
 router = routers.DefaultRouter()
 
