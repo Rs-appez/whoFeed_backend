@@ -30,7 +30,15 @@ class PlayerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class PlayerPublicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ["name", "id", "champion"]
+
+
 class PartySerializer(serializers.ModelSerializer):
+    players = PlayerPublicSerializer(many=True)
+
     class Meta:
         model = Party
         fields = "__all__"
