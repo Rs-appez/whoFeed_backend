@@ -68,7 +68,7 @@ class PartyViewSet(viewsets.ViewSet):
     queryset = Party.objects.all()
     serializer_class = PartySerializer
 
-    @action(detail=False, permission_classes=[AllowAny])
+    @action(detail=False, methods=["POST"], permission_classes=[AllowAny])
     def create_party(self, request):
         if "Authorization" not in request.headers:
             return Response({"error": "No token provided"}, status=401)
