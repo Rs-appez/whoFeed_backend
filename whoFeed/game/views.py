@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
@@ -50,6 +50,18 @@ class ParTypeViewSet(viewsets.ModelViewSet):
 class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+    permission_classes_by_action = {"create": [AllowAny]}
+
+    def get_permissions(self):
+        try:
+            # return permission_classes depending on `action`
+            return [
+                permission()
+                for permission in self.permission_classes_by_action[self.action]
+            ]
+        except KeyError:
+            # action is not set return default permission_classes
+            return [permission() for permission in self.permission_classes]
 
 
 class PartyViewSet(viewsets.ViewSet):
