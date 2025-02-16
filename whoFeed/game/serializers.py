@@ -33,7 +33,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 class PlayerPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ["name", "id", "champion"]
+        fields = ["name", "id"]
 
 
 class PartySerializer(serializers.ModelSerializer):
