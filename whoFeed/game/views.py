@@ -81,6 +81,7 @@ class PartyViewSet(viewsets.ViewSet):
         if not player:
             return Response({"error": "Invalid token"}, status=401)
 
-        party = Party.objects.create(player=player)
+        party = Party.objects.create()
+        party.players.add(player)
         serializer = PartySerializer(party)
         return Response(serializer.data)
