@@ -72,3 +72,10 @@ class Party(models.Model):
 
     def __str__(self):
         return self.id
+
+    def add_player(self, player):
+        if self.players.count() == 2:
+            return False
+        self.players.add(player)
+        self.save()
+        return True
