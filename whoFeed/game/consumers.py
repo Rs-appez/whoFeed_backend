@@ -1,6 +1,6 @@
 from django.conf import settings
 from asgiref.sync import async_to_sync
-from channelsconsumers import SyncConsumer
+from channels.consumer import SyncConsumer
 
 
 class TicksSyncConsumer(SyncConsumer):
