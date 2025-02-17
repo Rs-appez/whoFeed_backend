@@ -67,7 +67,11 @@ class Party(models.Model):
     players = models.ManyToManyField("Player", max_length=2)
 
     def save(self, *args, **kwargs):
-        self.id = (self.id[:4] + "-" + self.id[4:]).upper()
+        if (
+            self._state.adding
+        ):  # Check if the object is being created for the first time
+            super().save(*args, **kwargs)
+            self.id = (self.id[:4] + "-" + self.id[4:]).upper()
         super().save(*args, **kwargs)
 
     def __str__(self):
