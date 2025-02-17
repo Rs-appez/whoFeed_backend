@@ -85,3 +85,27 @@ class PartyViewSet(viewsets.ViewSet):
         party.players.add(player)
         serializer = PartySerializer(party)
         return Response(serializer.data)
+
+    @action(detail=False, methods=["POST"], permission_classes=[AllowAny])
+    def join_party(self, request):
+        if "Authorization" not in request.headers:
+            return Response({"error": "No token provided"}, status=401)
+
+        token_type, token = request.headers.get("Authorization").split(" ")
+        if token_type != "Bearer":
+            return Response({"error": "Invalid token type"}, status=401)
+
+        player = Player.objects.filter(jwttoken=token).first()
+        if not player:
+            return Response({"error": "Invalid token"}, status=401)
+
+        party_id = request.data.get("party_id")
+        party = Party.objects.filter(id=party_id).first()
+        if not party:
+            return Response({"error": "Invalid party id"}, status=400)
+
+        if not party.add_player(player):
+            return Response({"error": "Party is full"}, status=400)
+
+        serializer = PartySerializer(party)
+        return Response(serializer.data)
