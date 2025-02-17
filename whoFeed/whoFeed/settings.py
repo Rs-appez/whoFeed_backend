@@ -40,6 +40,8 @@ CORS_ORIGIN_WHITELIST = ("http://127.0.0.1:8000", "http://localhost:4200")
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
+    # "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -82,6 +84,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "whoFeed.wsgi.application"
+ASGI_APPLICATION = "whoFeed.asgi.application"
 
 
 # Database
@@ -148,3 +151,20 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAdminUser",
     ],
 }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                {
+                    "host": env("REDIS_HOST", default="127.0.0.1"),
+                    "port": env("REDIS_PORT", default=6379),
+                    "password": env("REDIS_PASSWORD", default=""),
+                }
+            ],
+        },
+    },
+}
+
+TICKS_GROUP_NAME = "ticks"
