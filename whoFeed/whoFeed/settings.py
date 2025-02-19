@@ -166,5 +166,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-TICKS_GROUP_NAME = "ticks"

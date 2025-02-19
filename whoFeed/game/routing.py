@@ -2,5 +2,5 @@ from django.urls import re_path
 from .consumers import TicksSyncConsumer
 
 websocket_urlpatterns = [
-    re_path(r"ws/ticks/$", TicksSyncConsumer.as_asgi()),
+    re_path(r"ws/game/(?P<party_ID>\w+)/$", TicksSyncConsumer.as_asgi()),
 ]
