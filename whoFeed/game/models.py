@@ -70,7 +70,6 @@ class Party(models.Model):
         if (
             self._state.adding
         ):  # Check if the object is being created for the first time
-            super().save(*args, **kwargs)
             self.id = (self.id[:4] + "-" + self.id[4:]).upper()
         super().save(*args, **kwargs)
 
